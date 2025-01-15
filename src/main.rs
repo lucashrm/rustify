@@ -1,5 +1,8 @@
-use vizia::icons::ICON_PLAYER_PLAY;
+mod gui;
+
 use vizia::prelude::*;
+use crate::gui::music_player::*;
+
 #[derive(Lens)]
 pub struct AppData {
     music_timer: f32,
@@ -7,24 +10,11 @@ pub struct AppData {
 
 impl Model for AppData {}
 
-pub struct MusicPlayer {}
-
-impl View for MusicPlayer {}
-
-impl MusicPlayer {
-    pub fn new(cx: &mut Context) -> Handle<Self> {
-        Self {}.build(cx, |cx| {
-            HStack::new(cx, |cx| {
-                Button::new(cx, |cx| Svg::new(cx, ICON_PLAYER_PLAY));
-            });
-        })
-    }
-}
-
 fn main() -> Result<(), ApplicationError> {
     Application::new(|cx| {
         cx.add_stylesheet(include_style!("assets/css/style.css"))
             .expect("Failed to load stylesheet");
+
         MusicPlayer::new(cx);
     })
     .title("rustify")
