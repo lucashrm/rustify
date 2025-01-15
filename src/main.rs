@@ -1,11 +1,14 @@
 mod gui;
+mod core;
 
 use vizia::prelude::*;
 use crate::gui::music_player::*;
+use crate::core::music::{Music};
 
 #[derive(Lens)]
 pub struct AppData {
-    music_timer: f32,
+    music_list: Vec<Music>,
+    selected_music: Music,
 }
 
 impl Model for AppData {}
