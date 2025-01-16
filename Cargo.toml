@@ -7,3 +7,4 @@ edition = "2021"
 vizia = {git = "https://github.com/vizia/vizia"}
 symphonia = { version = "0.5.4", features = ["all"] }
 id3 = "1.16.0"
+mp3-duration = "0.1.10"
