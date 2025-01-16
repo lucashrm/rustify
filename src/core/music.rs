@@ -1,7 +1,8 @@
 ﻿use std::io::Error;
 use id3::{Tag, TagLike};
 
-struct MusicMetaData {
+#[derive(Debug)]
+pub struct MusicMetaData {
     title: String,
     artist: String,
     album: String,
@@ -22,7 +23,7 @@ impl MusicMetaData {
 pub struct Music {
     is_playing: bool,
     filepath: String,
-    metadata: MusicMetaData
+    pub metadata: MusicMetaData
 }
 
 impl Music {
