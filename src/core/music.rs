@@ -18,6 +18,10 @@ impl MusicMetaData {
             album: tag.album().unwrap_or_else(|| "no album").to_string(),
         })
     }
+
+    pub fn get_infos(&self) -> (&str, &str, &str) {
+        (&self.title.as_str(), &self.album.as_str(), &self.artist.as_str())
+    }
 }
 
 pub struct Music {
