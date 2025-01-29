@@ -53,7 +53,7 @@ fn main() -> Result<(), ApplicationError> {
         MusicPlayer::new(cx);
         Library::new(cx);
         for music in musics {
-            MusicLine::new(cx, music).on_play(play);
+            MusicLine::new(cx, music, play);
         }
 
     })

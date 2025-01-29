@@ -35,12 +35,12 @@ impl<'a> MusicModifiers for Handle<'a, MusicLine> {
 }
 
 impl MusicLine {
-    pub fn new(cx: &mut Context, music: Music) -> Handle<Self> {
+    pub fn new<F: Fn(&mut EventContext, &Music) + 'static>(cx: &mut Context, music: Music, callback: F) -> Handle<Self> {
         let duration = format!("{}:{}",
                                (music.metadata.get_duration() / 60.0) as i32,
                                music.metadata.get_duration() % 60.0);
         Self {
-            on_play: None,
+            on_play: Some(Box::new(callback)),
             music: music.clone()
         }.build(cx, |cx| {
             HStack::new(cx, |cx| {

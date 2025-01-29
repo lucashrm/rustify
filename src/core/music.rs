@@ -2,6 +2,7 @@
 use id3::{Tag, TagLike};
 use std::path::Path;
 use mp3_duration;
+use symphonia::core::io::MediaSourceStream;
 use vizia::prelude::*;
 
 #[derive(Debug, Clone)]
@@ -54,5 +55,11 @@ impl Music {
             filepath: filepath.to_string(),
             metadata,
         })
+    }
+
+    pub fn play(&self) {
+        let src = std::fs::File::open(self.filepath.as_str()).expect("failed to open media");
+
+        let mss = MediaSourceStream::new(Box::new(src), Default::default());
     }
 }
