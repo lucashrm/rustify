@@ -2,8 +2,12 @@
 use id3::{Tag, TagLike};
 use std::path::Path;
 use mp3_duration;
+use symphonia::core::formats::FormatOptions;
 use symphonia::core::io::MediaSourceStream;
+use symphonia::core::meta::MetadataOptions;
+use symphonia::core::probe::Hint;
 use vizia::prelude::*;
+use vizia::vg::gpu::gl::Format;
 
 #[derive(Debug, Clone)]
 pub struct MusicMetaData {
@@ -61,5 +65,15 @@ impl Music {
         let src = std::fs::File::open(self.filepath.as_str()).expect("failed to open media");
 
         let mss = MediaSourceStream::new(Box::new(src), Default::default());
+
+        let mut hint = Hint::new();
+        hint.with_extension("mp3");
+
+        let meta_opts: MetadataOptions = Default::default();
+        let fmt_opts: FormatOptions = Default::default();
+
+        let probed = symphonia::default::get_probe()
+            .format(&hint, mss, &fmt_opts, &meta_opts).expect("unsupported format");
+
     }
 }
