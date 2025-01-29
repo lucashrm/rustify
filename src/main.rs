@@ -39,6 +39,10 @@ fn get_all_library_musics(dir_path: &str) -> Result<Vec<Music>, Error> {
     Ok(musics)
 }
 
+fn play(cx: &mut EventContext, music: &Music) {
+    println!("{}", music.metadata.get_infos().0);
+}
+
 fn main() -> Result<(), ApplicationError> {
     let musics = get_all_library_musics(LIBRARY_PATH)
         .expect("Error while loading a music");
@@ -49,7 +53,7 @@ fn main() -> Result<(), ApplicationError> {
         MusicPlayer::new(cx);
         Library::new(cx);
         for music in musics {
-            MusicLine::new(cx, &music);
+            MusicLine::new(cx, music).on_play(play);
         }
 
     })

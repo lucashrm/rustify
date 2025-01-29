@@ -4,7 +4,7 @@ use std::path::Path;
 use mp3_duration;
 use vizia::prelude::*;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct MusicMetaData {
     title: String,
     artist: String,
@@ -36,6 +36,7 @@ impl MusicMetaData {
     }
 }
 
+#[derive(Clone)]
 pub struct Music {
     is_playing: bool,
     filepath: String,
